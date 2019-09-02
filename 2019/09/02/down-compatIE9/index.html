@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>记一次兼容IE9踩过得坑 | Hanyamu的个人空间</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="技术栈React + Redux + Axios 方法兼容IE在某种程度上来说就是语法的降级，所以babel-polyfill就基本上能够解决安装使用 123npm install babel-polyfill --save // 安装命令// 使用的时候在webpack的entry里面加上就行entry: [&quot;babel-polyfill&quot;,  path.join(__dirname, &apos;src">
+<meta name="keywords" content="前端个人技术博客,js,react,react-router,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一次兼容IE9踩过得坑">
+<meta property="og:url" content="http://yoursite.com/2019/09/02/down-compatIE9/index.html">
+<meta property="og:site_name" content="Hanyamu的个人空间">
+<meta property="og:description" content="技术栈React + Redux + Axios 方法兼容IE在某种程度上来说就是语法的降级，所以babel-polyfill就基本上能够解决安装使用 123npm install babel-polyfill --save // 安装命令// 使用的时候在webpack的entry里面加上就行entry: [&quot;babel-polyfill&quot;,  path.join(__dirname, &apos;src">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-02T09:03:51.867Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="记一次兼容IE9踩过得坑">
+<meta name="twitter:description" content="技术栈React + Redux + Axios 方法兼容IE在某种程度上来说就是语法的降级，所以babel-polyfill就基本上能够解决安装使用 123npm install babel-polyfill --save // 安装命令// 使用的时候在webpack的entry里面加上就行entry: [&quot;babel-polyfill&quot;,  path.join(__dirname, &apos;src">
+  
+    <link rel="alternate" href="/atom.xml" title="Hanyamu的个人空间" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hanyamu的个人空间</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Hanyamu的小博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-down-compatIE9" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/09/02/down-compatIE9/" class="article-date">
+  <time datetime="2019-09-02T07:23:02.567Z" itemprop="datePublished">2019-09-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      记一次兼容IE9踩过得坑
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h3><p>React + Redux + Axios</p>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>兼容IE在某种程度上来说就是语法的降级，所以babel-polyfill就基本上能够解决<br>安装使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install babel-polyfill --save // 安装命令</span><br><span class="line">// 使用的时候在webpack的entry里面加上就行</span><br><span class="line">entry: [<span class="string">"babel-polyfill"</span>,  path.join(__dirname, <span class="string">'src/index.js'</span>)],</span><br></pre></td></tr></table></figure>
+
+<h2 id="其他坑"><a href="#其他坑" class="headerlink" title="其他坑"></a>其他坑</h2><h3 id="css的flex布局兼容"><a href="#css的flex布局兼容" class="headerlink" title="css的flex布局兼容"></a>css的flex布局兼容</h3><p>IE9上不支持css的flex的布局样式，这坑大了，页面用了好多，表示脑壳疼，导致flex的布局就写这样子了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">.col_line_class &#123;</span><br><span class="line">    width: 100%;</span><br><span class="line">    margin: 10px 0;</span><br><span class="line">    display: flex;</span><br><span class="line">    align-items: center;</span><br><span class="line">    font-size: 14px;</span><br><span class="line">    overflow: hidden;</span><br><span class="line">&#125;</span><br><span class="line">.col_line_label &#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    text-align: right;</span><br><span class="line">    margin-right: 15px;</span><br><span class="line">    <span class="built_in">float</span>: left;</span><br><span class="line">&#125;</span><br><span class="line">.col_line_value &#123;</span><br><span class="line">    flex: 1;</span><br><span class="line">    overflow: hidden;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果浏览器支持flex的话浮动就没用,如果不支持的话就走bfc的浮动布局，最后面的子元素不设置宽，用overflow: hidden;或者overflow: auto;元素自动计算撑满整个bfc容器，</p>
+<h3 id="IE9不支持Formdata对象"><a href="#IE9不支持Formdata对象" class="headerlink" title="IE9不支持Formdata对象"></a>IE9不支持Formdata对象</h3><p>在和后端的交互中，后端接受请求参数的形式大多会用到form data的形式，而在使用axios的formdata传参形式时，如果传过去的data不是formdata形式的话，axios里面会进行判断，如果不是formdata，返回出来的参数是空，所以之前没有考虑IE9的时候如果走formdata传参我这边会把data做一个转换，代码（不兼容IE9）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(headers &amp;&amp; headers[<span class="string">'Content-Type'</span>] &amp;&amp; headers[<span class="string">'Content-Type'</span>] == <span class="string">"application/json"</span>) &#123;</span><br><span class="line">  axiosOptions.data = dataParse;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  axiosOptions.data = jsonToForm(dataParse);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> jsonToForm(json) &#123;</span><br><span class="line">  <span class="built_in">let</span> formData = new FormData();</span><br><span class="line">  Object.keys(json).forEach((key) =&gt; &#123;</span><br><span class="line">    formData.append(key, json[key]);</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="built_in">return</span> formData</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后你会发现在IE9下一直会报FormData未定义，因为这个是很久封装的了，这个地方卡了好久，后面发现自己把自己给坑了，解决办法是不走FormData对象形式的，通过安装依赖querystring，进行参数转换，具体做法见代码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">npm install querystring --save // 安装</span><br><span class="line"></span><br><span class="line">// 使用</span><br><span class="line">import * as querystring from <span class="string">'querystring'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(headers &amp;&amp; headers[<span class="string">'Content-Type'</span>] &amp;&amp; headers[<span class="string">'Content-Type'</span>] == <span class="string">"application/json"</span>) &#123;</span><br><span class="line">  axiosOptions.data = dataParse;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  axiosOptions.data = querystring.stringify(dataParse);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后你会发现IE9也能比较愉快的玩耍了。querystring.stringify的源码有兴趣的同学可以看一下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">  <span class="keyword">if</span> (has.call(obj, key)) &#123;</span><br><span class="line">    value = obj[key];</span><br><span class="line"></span><br><span class="line">    //</span><br><span class="line">    // Edge cases <span class="built_in">where</span> we actually want to encode the value to an empty</span><br><span class="line">    // string instead of the stringified value.</span><br><span class="line">    //</span><br><span class="line">    <span class="keyword">if</span> (!value &amp;&amp; (value === null || value === undef || isNaN(value))) &#123;</span><br><span class="line">      value = <span class="string">''</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    key = encodeURIComponent(key);</span><br><span class="line">    value = encodeURIComponent(value);</span><br><span class="line"></span><br><span class="line">    //</span><br><span class="line">    // If we failed to encode the strings, we should bail out as we dont</span><br><span class="line">    // want to add invalid strings to the query.</span><br><span class="line">    //</span><br><span class="line">    <span class="keyword">if</span> (key === null || value === null) <span class="built_in">continue</span>;</span><br><span class="line">    pairs.push(key +<span class="string">'='</span>+ value);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到这个插件的转换使用encodeURIComponent的原生方法实现的。<br>所以兼容IE还是得贴近原生呀！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/09/02/down-compatIE9/" data-id="ck026heb20001o0vugm3219m6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/29/learn-link/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">学习资料链接站</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/09/02/down-compatIE9/">记一次兼容IE9踩过得坑</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/29/learn-link/">学习资料链接站</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/29/vue2-x-communication/">vue2.x-父子组件通讯</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/29/axios-potting/">用axios封装的一个比较好用的get和post请求</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/29/mobile-header-component/">React移动端上的一个好用的header组件</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Hanyamu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

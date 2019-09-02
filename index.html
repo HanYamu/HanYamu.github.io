@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hanyamu的个人空间</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="记录Hanyamu在开发中遇到的一些技术点">
+<meta name="keywords" content="前端个人技术博客,js,react,react-router,">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hanyamu的个人空间">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="Hanyamu的个人空间">
+<meta property="og:description" content="记录Hanyamu在开发中遇到的一些技术点">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hanyamu的个人空间">
+<meta name="twitter:description" content="记录Hanyamu在开发中遇到的一些技术点">
+  
+    <link rel="alternate" href="/atom.xml" title="Hanyamu的个人空间" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hanyamu的个人空间</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Hanyamu的小博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-down-compatIE9" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/09/02/down-compatIE9/" class="article-date">
+  <time datetime="2019-09-02T07:23:02.567Z" itemprop="datePublished">2019-09-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/02/down-compatIE9/">记一次兼容IE9踩过得坑</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h3><p>React + Redux + Axios</p>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>兼容IE在某种程度上来说就是语法的降级，所以babel-polyfill就基本上能够解决<br>安装使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install babel-polyfill --save // 安装命令</span><br><span class="line">// 使用的时候在webpack的entry里面加上就行</span><br><span class="line">entry: [<span class="string">"babel-polyfill"</span>,  path.join(__dirname, <span class="string">'src/index.js'</span>)],</span><br></pre></td></tr></table></figure>
+
+<h2 id="其他坑"><a href="#其他坑" class="headerlink" title="其他坑"></a>其他坑</h2><h3 id="css的flex布局兼容"><a href="#css的flex布局兼容" class="headerlink" title="css的flex布局兼容"></a>css的flex布局兼容</h3><p>IE9上不支持css的flex的布局样式，这坑大了，页面用了好多，表示脑壳疼，导致flex的布局就写这样子了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">.col_line_class &#123;</span><br><span class="line">    width: 100%;</span><br><span class="line">    margin: 10px 0;</span><br><span class="line">    display: flex;</span><br><span class="line">    align-items: center;</span><br><span class="line">    font-size: 14px;</span><br><span class="line">    overflow: hidden;</span><br><span class="line">&#125;</span><br><span class="line">.col_line_label &#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    text-align: right;</span><br><span class="line">    margin-right: 15px;</span><br><span class="line">    <span class="built_in">float</span>: left;</span><br><span class="line">&#125;</span><br><span class="line">.col_line_value &#123;</span><br><span class="line">    flex: 1;</span><br><span class="line">    overflow: hidden;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果浏览器支持flex的话浮动就没用,如果不支持的话就走bfc的浮动布局，最后面的子元素不设置宽，用overflow: hidden;或者overflow: auto;元素自动计算撑满整个bfc容器，</p>
+<h3 id="IE9不支持Formdata对象"><a href="#IE9不支持Formdata对象" class="headerlink" title="IE9不支持Formdata对象"></a>IE9不支持Formdata对象</h3><p>在和后端的交互中，后端接受请求参数的形式大多会用到form data的形式，而在使用axios的formdata传参形式时，如果传过去的data不是formdata形式的话，axios里面会进行判断，如果不是formdata，返回出来的参数是空，所以之前没有考虑IE9的时候如果走formdata传参我这边会把data做一个转换，代码（不兼容IE9）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(headers &amp;&amp; headers[<span class="string">'Content-Type'</span>] &amp;&amp; headers[<span class="string">'Content-Type'</span>] == <span class="string">"application/json"</span>) &#123;</span><br><span class="line">  axiosOptions.data = dataParse;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  axiosOptions.data = jsonToForm(dataParse);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> jsonToForm(json) &#123;</span><br><span class="line">  <span class="built_in">let</span> formData = new FormData();</span><br><span class="line">  Object.keys(json).forEach((key) =&gt; &#123;</span><br><span class="line">    formData.append(key, json[key]);</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="built_in">return</span> formData</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后你会发现在IE9下一直会报FormData未定义，因为这个是很久封装的了，这个地方卡了好久，后面发现自己把自己给坑了，解决办法是不走FormData对象形式的，通过安装依赖querystring，进行参数转换，具体做法见代码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">npm install querystring --save // 安装</span><br><span class="line"></span><br><span class="line">// 使用</span><br><span class="line">import * as querystring from <span class="string">'querystring'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(headers &amp;&amp; headers[<span class="string">'Content-Type'</span>] &amp;&amp; headers[<span class="string">'Content-Type'</span>] == <span class="string">"application/json"</span>) &#123;</span><br><span class="line">  axiosOptions.data = dataParse;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  axiosOptions.data = querystring.stringify(dataParse);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后你会发现IE9也能比较愉快的玩耍了。querystring.stringify的源码有兴趣的同学可以看一下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">  <span class="keyword">if</span> (has.call(obj, key)) &#123;</span><br><span class="line">    value = obj[key];</span><br><span class="line"></span><br><span class="line">    //</span><br><span class="line">    // Edge cases <span class="built_in">where</span> we actually want to encode the value to an empty</span><br><span class="line">    // string instead of the stringified value.</span><br><span class="line">    //</span><br><span class="line">    <span class="keyword">if</span> (!value &amp;&amp; (value === null || value === undef || isNaN(value))) &#123;</span><br><span class="line">      value = <span class="string">''</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    key = encodeURIComponent(key);</span><br><span class="line">    value = encodeURIComponent(value);</span><br><span class="line"></span><br><span class="line">    //</span><br><span class="line">    // If we failed to encode the strings, we should bail out as we dont</span><br><span class="line">    // want to add invalid strings to the query.</span><br><span class="line">    //</span><br><span class="line">    <span class="keyword">if</span> (key === null || value === null) <span class="built_in">continue</span>;</span><br><span class="line">    pairs.push(key +<span class="string">'='</span>+ value);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到这个插件的转换使用encodeURIComponent的原生方法实现的。<br>所以兼容IE还是得贴近原生呀！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/09/02/down-compatIE9/" data-id="ck026heb20001o0vugm3219m6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-learn-link" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/29/learn-link/" class="article-date">
+  <time datetime="2019-08-29T05:29:58.093Z" itemprop="datePublished">2019-08-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/29/learn-link/">学习资料链接站</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Next-js"><a href="#Next-js" class="headerlink" title="Next.js"></a>Next.js</h3><p>项目地址: <a href="https://github.com/zeit/next.js" target="_blank" rel="noopener">github</a><br>Next.js: <a href="https://nextjs.frontendx.cn/" target="_blank" rel="noopener">中文文档</a><br>Next.js: <a href="https://nextjs.org/learn/basics/getting-started" target="_blank" rel="noopener">英文文档</a></p>
+<h3 id="koa"><a href="#koa" class="headerlink" title="koa"></a>koa</h3><p>项目地址: <a href="https://github.com/koajs/koa" target="_blank" rel="noopener">github</a><br>koa: <a href="https://koa.bootcss.com/" target="_blank" rel="noopener">中文文档</a></p>
+<h3 id="mobx"><a href="#mobx" class="headerlink" title="mobx"></a>mobx</h3><p>项目地址: <a href="https://github.com/mobxjs/mobx" target="_blank" rel="noopener">github</a><br>mobx: <a href="https://cn.mobx.js.org/" target="_blank" rel="noopener">中文文档</a><br>mobx: <a href="https://mobx.js.org/" target="_blank" rel="noopener">英文文档</a></p>
+<h3 id="react-router"><a href="#react-router" class="headerlink" title="react-router"></a>react-router</h3><p>react-router: <a href="https://segmentfault.com/a/1190000014294604" target="_blank" rel="noopener">中文文档</a> segmentfault上的的大佬翻译，比较全<br>react-router: <a href="https://reacttraining.com/react-router/web/example/basic" target="_blank" rel="noopener">英文文档</a></p>
+<h3 id="Ant-Design"><a href="#Ant-Design" class="headerlink" title="Ant Design"></a>Ant Design</h3><p>ant.design: <a href="https://ant.design/components/button-cn/" target="_blank" rel="noopener">官方文档</a></p>
+<h3 id="Ant-Design-Mobile"><a href="#Ant-Design-Mobile" class="headerlink" title="Ant Design Mobile"></a>Ant Design Mobile</h3><p>mobile.ant.design: <a href="https://mobile.ant.design/docs/react/introduce-cn" target="_blank" rel="noopener">官方文档</a></p>
+<h3 id="Element"><a href="#Element" class="headerlink" title="Element"></a>Element</h3><p>Element: <a href="https://element.eleme.cn/#/zh-CN/component/installation" target="_blank" rel="noopener">官方文档</a></p>
+<h3 id="Mint-UI"><a href="#Mint-UI" class="headerlink" title="Mint UI"></a>Mint UI</h3><p>mint-ui: <a href="https://mint-ui.github.io/#!/en" target="_blank" rel="noopener">官方文档</a></p>
+<h3 id="vuex"><a href="#vuex" class="headerlink" title="vuex"></a>vuex</h3><p>vuex: <a href="https://vuex.vuejs.org/zh/guide/" target="_blank" rel="noopener">官方文档</a></p>
+<h3 id="Vue-Router"><a href="#Vue-Router" class="headerlink" title="Vue Router"></a>Vue Router</h3><p>router.vue: <a href="https://router.vuejs.org/zh/" target="_blank" rel="noopener">官方文档</a></p>
+<h3 id="Egg"><a href="#Egg" class="headerlink" title="Egg"></a>Egg</h3><p>egg: <a href="https://eggjs.org/zh-cn/intro/quickstart.html" target="_blank" rel="noopener">官方文档</a></p>
+<h3 id="网络实用书签"><a href="#网络实用书签" class="headerlink" title="网络实用书签"></a>网络实用书签</h3><p>segmentfault: <a href="https://segmentfault.com/a/1190000016420985" target="_blank" rel="noopener">前端最实用书签(持续更新)</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/29/learn-link/" data-id="ck026heb60003o0vuhgnf0iva" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-vue2-x-communication" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/29/vue2-x-communication/" class="article-date">
+  <time datetime="2019-08-29T03:28:31.591Z" itemprop="datePublished">2019-08-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/29/vue2-x-communication/">vue2.x-父子组件通讯</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.首先来看vue提供的方式，父组件通过props向子组件传值，子组件可以向父组件通过 this.$emit(“method”, “value”)  的方式向父组件传值，上码。</p>
+<p>父组件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;ui-layout&gt;</span><br><span class="line">    &lt;ui-head title=<span class="string">"测试"</span>&gt;&lt;/ui-head&gt;</span><br><span class="line">    &lt;ui-container&gt;</span><br><span class="line">      &lt;div&gt;&#123;&#123;msg&#125;&#125;&lt;/div&gt;</span><br><span class="line">      &lt;ui-mask :hidden=<span class="string">"miskHidden"</span> @dialog-click=<span class="string">"maskClickMethod"</span>&gt;&lt;/ui-mask&gt;</span><br><span class="line">    &lt;/ui-container&gt;</span><br><span class="line">  &lt;/ui-layout&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">// @ is an <span class="built_in">alias</span> to /src</span><br><span class="line">import UiMask from <span class="string">"../../components/UiMask.vue"</span></span><br><span class="line"><span class="built_in">export</span> default &#123;</span><br><span class="line">  <span class="function"><span class="title">data</span></span>() &#123;</span><br><span class="line">    <span class="built_in">return</span> &#123;</span><br><span class="line">      msg: <span class="string">"click me"</span>,</span><br><span class="line">      miskHidden: <span class="literal">false</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    maskClickMethod(val) &#123;</span><br><span class="line">      console.log(val)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>子组件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div :class=<span class="string">"hidden ? 'ui-dialog' : 'ui-dialog hidden'"</span> @click.capture.self=<span class="string">"dialogClick"</span>&gt;</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;slot&gt;&lt;/slot&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="built_in">export</span> default &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    hidden: &#123;</span><br><span class="line">      <span class="built_in">type</span>: Boolean,</span><br><span class="line">      default: <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    <span class="function"><span class="title">dialogClick</span></span>() &#123;</span><br><span class="line">      this.<span class="variable">$emit</span>(<span class="string">"dialog-click"</span>, <span class="string">"dialogClick OK"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这里父组件import引入ui-mask子组件后，通过在标签上使用hidden向子组件传值，然后子组件通过props：{hidden}来接收父组件传过来的值，之后就可以通过hidden来控制自己的class啦，其中的type是指明接受父组件传入值得类型，default是为了设置一个默认值，这里也就是父传子了。</p>
+<p>很多时候子组件也需要向父组件传值，这里来看子组件，可以看到子组件上面有个click方法（capture、self为修饰符，可忽略），然后方法里面用了this.$emit（“dialog-click”,”dialogClick OK”）,联想到前面提到了this.$emit(“method”, “value”)  的方式，可以理解为在子组件定义了一个dialog-click的事件，第二个参数“dialogClick OK”可以理解为为事件传入的值，然后父组件就可以使用dialog-click的事件了，通过@dialog-click事件使用maskClick方法通过传入的参数val父组件就能获取到子组件传入的值了，有木有很简单啊。</p>
+<p>知道父子组件传值之后就可以编写一些使用的组件啦。</p>
+<p>2.vue里面互通信息当然少不了vuex了，把数据放入state里面之后就能通过vue的计算属性computed里面获取state里面的值了，想要更改的时候就通过dispatch调用对应的actio方式更改state里面的值了。</p>
+<p>3.除了上面这种官方的方法之外，当然还有其他方法了，像一些全局的的方法或者变量都能实现父子组件之间的信息交换，所以如果把变量赋到wndow上面，那么获取值就简单了，所以sessionStorage、localStorage、cookie都可以实现值得取赋了。不过这种方式当然不推荐了，因为vue里面的数据是响应式的，这种方式只能取得一次，就是最初始的一次，后面就只有躺着了。</p>
+<p>详细代码可参考：<a href="https://github.com/HanYamu/zqq-cli-mobile.git" target="_blank" rel="noopener">https://github.com/HanYamu/zqq-cli-mobile.git</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/29/vue2-x-communication/" data-id="ck026heb80005o0vumzk5m3hs" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-axios-potting" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/29/axios-potting/" class="article-date">
+  <time datetime="2019-08-29T03:12:15.366Z" itemprop="datePublished">2019-08-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/29/axios-potting/">用axios封装的一个比较好用的get和post请求</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p> 每个项目都会用到request请求，目前这方面用的比较多的就是<a href="https://www.kancloud.cn/yunye/axios/234845" target="_blank" rel="noopener">axio</a>了，结合目前的经验，写了这么一个比较实用的文件，先上代码吧！</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Created by zqq(song que / hanyamu) on 2018/10/31.</span><br><span class="line"> */</span><br><span class="line">/* </span><br><span class="line">    Urls的形式如下：</span><br><span class="line">    const requestUrl = &#123;</span><br><span class="line">        homeIndex: &#123;</span><br><span class="line">            name: <span class="string">"测试地址"</span>,</span><br><span class="line">            url: <span class="string">"home/index"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="built_in">export</span> default requestUrl;</span><br><span class="line"> */</span><br><span class="line">import Axios from <span class="string">"axios"</span>;</span><br><span class="line">import Urls from <span class="string">"./urls.js"</span>;</span><br><span class="line">/* axios请求拦截 */</span><br><span class="line">Axios.interceptors.request.use(</span><br><span class="line">  config =&gt; &#123;</span><br><span class="line">    <span class="built_in">return</span> config;</span><br><span class="line">  &#125;,</span><br><span class="line">  err =&gt; &#123;</span><br><span class="line">    <span class="built_in">return</span> Promise.reject(err);</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br><span class="line">/* axios响应拦截 */</span><br><span class="line">Axios.interceptors.response.use(</span><br><span class="line">  res =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (res.data.code === 40001) &#123;</span><br><span class="line">      /* 错误code统一处理 */</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> res;</span><br><span class="line">  &#125;,</span><br><span class="line">  err =&gt; &#123;</span><br><span class="line">    <span class="built_in">return</span> Promise.reject(err);</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="built_in">let</span> getAxiosConfig = <span class="keyword">function</span>(method, url, data, baseUrl, headers) &#123;</span><br><span class="line">  <span class="built_in">let</span> axiosOptions = &#123;&#125;;</span><br><span class="line">  axiosOptions.timeout = 1000 * 60;</span><br><span class="line">  axiosOptions.withCredentials = <span class="literal">true</span>; // 重点关注，这个参数当时有弄出了一点小问题</span><br><span class="line">  <span class="keyword">if</span>(baseUrl) &#123;</span><br><span class="line">    axiosOptions.baseURL = baseUrl;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    axiosOptions.baseURL = <span class="string">""</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  axiosOptions.method = method;</span><br><span class="line">  <span class="keyword">if</span>(Urls[url]) &#123;</span><br><span class="line">    axiosOptions.url = Urls[url].url;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    axiosOptions.url = url;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (method == <span class="string">"get"</span> &amp;&amp; data) &#123;</span><br><span class="line">    axiosOptions.params = data;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (method == <span class="string">"post"</span> &amp;&amp; data) &#123;</span><br><span class="line">    axiosOptions.data = data;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">let</span> needHeaders = &#123;&#125;</span><br><span class="line">  axiosOptions.headers = &#123;...needHeaders, ...headers&#125;;</span><br><span class="line">  <span class="built_in">return</span> axiosOptions;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> const axiosGet = (url, data, baseUrl, headers) =&gt; &#123;</span><br><span class="line">  <span class="built_in">return</span> new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">    <span class="built_in">let</span> axiosConfig = getAxiosConfig(<span class="string">"get"</span>, url, data, baseUrl, headers);</span><br><span class="line">    Axios(axiosConfig)</span><br><span class="line">      .<span class="keyword">then</span>(res =&gt; &#123;</span><br><span class="line">        resolve(res.data);</span><br><span class="line">      &#125;)</span><br><span class="line">      .catch(err =&gt; &#123;</span><br><span class="line">        reject(err);</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">export</span> const axiosPost = (url, data, baseUrl, headers) =&gt; &#123;</span><br><span class="line">  <span class="built_in">return</span> new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">    <span class="built_in">let</span> axiosConfig = getAxiosConfig(<span class="string">"post"</span>, url, data, baseUrl, headers);</span><br><span class="line">    Axios(axiosConfig)</span><br><span class="line">      .<span class="keyword">then</span>(res =&gt; &#123;</span><br><span class="line">        resolve(res.data);</span><br><span class="line">      &#125;)</span><br><span class="line">      .catch(err =&gt; &#123;</span><br><span class="line">        reject(err);</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>注：该请求的封装适合后端用token形式的传参，之前的开发，公司都是用的token形式的，后面个人负责项目的时候封装了这个axios的请求，然后后端没用采用token，而是用的sesion形式来判断用户，具体做法就是后端会给前端一个cookie，然后cookie的特性是登录发请求的时候会自动带过去，所以之前后端这样做事没用问题的，但是用这个封装跨域的时候就获取不到cookie了，当时还是后端同学找出了解决方式（羞愧的我），查axios文档发现这个参数withCredentials，改参数默认为false，表示跨域请求时是否需要使用凭证，所以跨域的时候axios就把cookie拦截了，所以采用session的方式的话1请把这个值设为true，这样方便联调。</p>
+<p>axios中文文档：<a href="https://www.kancloud.cn/yunye/axios/234845" target="_blank" rel="noopener">https://www.kancloud.cn/yunye/axios/234845</a><br>按其配置，一个请求只需要传入一个options对象就可以了，所以我用getAxiosConfigs方法使其return出来一个对应的对象，后面就直接定义就好了。</p>
+<p>详细代码可参考：<a href="https://github.com/HanYamu/zqq-cli-mobile.git" target="_blank" rel="noopener">https://github.com/HanYamu/zqq-cli-mobile.git</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/29/axios-potting/" data-id="ck026he9v0000o0vus0jzclho" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mobile-header-component" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/29/mobile-header-component/" class="article-date">
+  <time datetime="2019-08-29T02:55:57.382Z" itemprop="datePublished">2019-08-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/29/mobile-header-component/">React移动端上的一个好用的header组件</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>移动端项目中页面多是头部header，中间内容，底部footer的结构，这里头部部分多为固定的结构，左边返回按钮，中间标题，右边可有可没有，为了减少重复编写，所以有个移动端的head组件是比较需要的。<br>head组件，先附上代码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; Component &#125; from <span class="string">'react'</span>;</span><br><span class="line">require (<span class="string">'./uiComponents.less'</span>)</span><br><span class="line"></span><br><span class="line">class UiHead extends Component &#123;</span><br><span class="line">    constructor(props, context) &#123;</span><br><span class="line">        super(props, context);</span><br><span class="line">        this.state = &#123;</span><br><span class="line">            headerOptions:&#123;</span><br><span class="line">                left: &lt;div&gt;←&lt;/div&gt;,</span><br><span class="line">                title: <span class="string">"titile"</span>,</span><br><span class="line">                right: <span class="string">""</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">render</span></span>()&#123;</span><br><span class="line">        /** 该处设置头部左边icon的默认返回图片 */</span><br><span class="line">        this.state.headerOptions.left = &lt;img src=&#123;require(<span class="string">"../../assets/imgs/back2.png"</span>)&#125; alt=<span class="string">""</span>/&gt;</span><br><span class="line">        <span class="built_in">return</span> (</span><br><span class="line">            &lt;div className=<span class="string">"ui_head"</span> ref=<span class="string">"uiHeaderRef"</span>&gt;</span><br><span class="line">                &lt;div className=<span class="string">"ui_head_left"</span> onClick=&#123;this.leftClick.bind(this)&#125;&gt;&#123;this.props.headerOptions &amp;&amp; this.props.headerOptions.left ? this.props.headerOptions.left : this.state.headerOptions.left&#125;&lt;/div&gt;</span><br><span class="line">                &lt;div className=<span class="string">"ui_head_middle"</span>&gt;&#123;this.props.headerOptions &amp;&amp; this.props.headerOptions.title ? this.props.headerOptions.title : this.state.headerOptions.title&#125;&lt;/div&gt;</span><br><span class="line">                &lt;div className=<span class="string">"ui_head_right"</span> onClick=&#123;this.rightClick.bind(this)&#125;&gt;&#123;this.props.headerOptions &amp;&amp; this.props.headerOptions.right ? this.props.headerOptions.right : this.state.headerOptions.right&#125;&lt;/div&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">componentDidMount</span></span>() &#123; &#125;</span><br><span class="line">    <span class="function"><span class="title">setDefaultHead</span></span>() &#123;</span><br><span class="line">        /** 该判断用于添加头部组件的class */</span><br><span class="line">        <span class="keyword">if</span>(this.props.className) &#123;</span><br><span class="line">            this.refs.uiHeaderRef.classList.add(this.props.className)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">leftClick</span></span>() &#123;</span><br><span class="line">        /** 该方法用于判断是否有传入点击头部左边icon的事件，有则用之，无则默认返回 */</span><br><span class="line">        <span class="keyword">if</span>(this.props.leftClick) &#123;</span><br><span class="line">            this.props.leftClick();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            window.history.go(-1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">rightClick</span></span>() &#123;</span><br><span class="line">        /** 该方法用于判断是否有传入点击头部右边icon的事件，有则用之，无默认事件 */</span><br><span class="line">        <span class="keyword">if</span>(this.props.rightClick) &#123;</span><br><span class="line">            this.props.rightClick();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class UiContainer extends Component &#123;</span><br><span class="line">    constructor(props, context) &#123;</span><br><span class="line">        super(props, context);</span><br><span class="line">        this.state = &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">render</span></span>()&#123;</span><br><span class="line">        /** this.props.children放在内部使得在其他页面调用该组件时可以向里面插入html标签，</span><br><span class="line">         * 需要注意，this.props.children 的值有三种可能：如果当前组件没有子节点，它就是 undefined ;</span><br><span class="line">         * 如果有一个子节点，数据类型是 object ；如果有多个子节点，数据类型就是 array 。</span><br><span class="line">         * */</span><br><span class="line">        <span class="built_in">return</span> (</span><br><span class="line">            &lt;div className=<span class="string">"ui_container"</span> ref=<span class="string">"uiContainer"</span>&gt;&#123;this.props.children&#125;&lt;/div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">componentDidMount</span></span>() &#123;</span><br><span class="line">        /** 该判断用于添加内容组件的class */</span><br><span class="line">        <span class="keyword">if</span>(this.props.className) &#123;</span><br><span class="line">            this.refs.uiContainer.classList.add(this.props.className)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class UiLayout extends Component &#123;</span><br><span class="line">    constructor(props, context) &#123;</span><br><span class="line">        super(props, context);</span><br><span class="line">        this.state = &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">render</span></span>()&#123;</span><br><span class="line">        /** this.props.children放在内部使得在其他页面调用该组件时可以向里面插入html标签，</span><br><span class="line">         * 需要注意，this.props.children 的值有三种可能：如果当前组件没有子节点，它就是 undefined ;</span><br><span class="line">         * 如果有一个子节点，数据类型是 object ；如果有多个子节点，数据类型就是 array 。</span><br><span class="line">         * */</span><br><span class="line">        <span class="built_in">return</span> (</span><br><span class="line">            &lt;div className=<span class="string">"ui_layout"</span> ref=<span class="string">"uiLayout"</span>&gt;&#123;this.props.children&#125;&lt;/div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">componentDidMount</span></span>() &#123;</span><br><span class="line">        /** 该判断用于添加外层布局组件的class */</span><br><span class="line">        <span class="keyword">if</span>(this.props.className) &#123;</span><br><span class="line">            this.refs.uiLayout.classList.add(this.props.className)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> &#123;UiHead, UiContainer, UiLayout&#125;</span><br></pre></td></tr></table></figure>
+
+<p>样式部分就不上代码了，简单的说下布局方式，header部分的总体布局为flex布局，返回垂直居中，并且左右两边各留出相同宽以供左右按钮的放置，左右两边不拉伸，然后中间给div，flex为1，占据除掉左右两边的所有部分，这样整个header就成型了。由于React可以接受html标签形式的dom，所以左右两边接受父组件出过来的参数，当然也也可以设置默认值，父组件的参数从props上去，若是不想采用默认方法也可以重父组件的props取，所以在左右按钮的方法上面增加了判断，采取什么方式可自行决断，然后其他两个组件主要是为了整体页面结构而加的，没有什么大的内容限制<br>详细代码可参考：<a href="https://github.com/HanYamu/" target="_blank" rel="noopener">https://github.com/HanYamu/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/29/mobile-header-component/" data-id="ck026heb70004o0vux9rl1g2a" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-react-router-history" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/29/react-router-history/" class="article-date">
+  <time datetime="2019-08-29T02:28:57.399Z" itemprop="datePublished">2019-08-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/29/react-router-history/">React路由的history的一点小用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>react路由的变化都是基于history上面进行的，大家可以明显的感觉到在外层的路由组件上面都会有一个history参数如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Router <span class="built_in">history</span>=&#123;browserHistory&#125; routes=&#123;routes(app.siteHost)&#125;/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>react-router4除外，react-router-dom里面提供的<a href="https://reacttraining.com/react-router/web/api/HashRouter" target="_blank" rel="noopener">HashRouter</a>, <a href="https://reacttraining.com/react-router/web/api/BrowserRouter" target="_blank" rel="noopener">BrowserRouter</a>组件自带有history，不过其中的<a href="https://reacttraining.com/react-router/web/api/Router" target="_blank" rel="noopener">Router</a>组件还是需要自己加history。<br>个人想法：自定义的history可以在react组件的外部获取到history，绑定history组件的history只能在react组件内部的props获取。</p>
+<p>所以接下来就来了解下这个history。<br>首先我们把<a href="https://github.com/ReactTraining/history" target="_blank" rel="noopener">history</a>打印出来看下有哪些，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">action: <span class="string">"PUSH"</span></span><br><span class="line">block: ƒ block(prompt)</span><br><span class="line">createHref: ƒ createHref(location)</span><br><span class="line">go: ƒ go(n)</span><br><span class="line">goBack: ƒ goBack()</span><br><span class="line">goForward: ƒ goForward()</span><br><span class="line">length: 8</span><br><span class="line">listen: ƒ listen(listener)</span><br><span class="line">location: &#123;pathname: <span class="string">"/main/resourcesManage"</span>, state: &#123;…&#125;, search: <span class="string">""</span>, <span class="built_in">hash</span>: <span class="string">""</span>&#125;</span><br><span class="line">push: ƒ push(path, state)</span><br><span class="line">replace: ƒ replace(path, state)</span><br></pre></td></tr></table></figure>
+
+<p>如上所示，create开头的方法与路由的创建有关，这里就不讨论了，我们重点先关注它的使用。<br>getCurrentLocation()：毫无疑问该方法是获取当前路由，其值为一个对象，包含action、hash、key、pathname、query、search参数以及state。<br>可以看一下具体的例子，其中action的pop向后删除，意为返回，push为跳转前进。</p>
+<p>go(num): 同window.history.go(num);<br>goBack(): 后退<br>goForward(): 前进<br>listen(): 监听路由，当前路由变化的时候触发。举个例子：browserHistory.listen(location =&gt; { console.log(location) }) 改方法接受一个函数作为参数，其默认值location同getCurrentLocation()获取的值。这里就能根据pathname进行判断以达到类似生命周期之类的效果。<br>listenBefore(): 顾名思义在监听路由变化之前，可以理解为跳转之前，其参数值同listen()。<br>注：listenBefore()参数回调允许return一个true或者false，若为false，则接下来的跳转将会终止。这个小技巧其实是可以运用到路由拦截里面的，网上看了很多react路由拦截的篇章，有好些都是从组件入手，根据不同的值渲染不同的组件，其实这个小地方就能实现路由拦截。<br>push(path): 跳转前进，并记录跳转的地址。<br>replace(path): 跳转前进，不记录跳转的地址。<br>push(path)与replace(path)的区别在于是否写入到history的历史栏里面，push在数组的方法里为向后添加，所以会记录到历史里面，而replace不会，合理运用好两者能够很好的管理好项目的路由系统。举个栗子来说吧，在电商购物的场景下会出现这种状况，去结算购物车，然后下单，然后需要选择地址，那么在改场景下跳转地址栏就可以用replace而不是push，若是用push的话有出现一个死循环，比如订单页面跳转了地址，选择了地址之后又跳转到订单，此时用户若是不想下单那么又走了右上角的返回，那么上一个页面是否就是订单页面呢，然后订单页面再返回就又是订单，然后才能返回到购物车，所以该处就可以考虑使用relpace了，因为若是用replace的话再订单页面就直接返回购物车，因为其他的跳转是不记录history的。</p>
+<p>在h5项目中合合理管理好路由会避免一些死循环问题。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/29/react-router-history/" data-id="ck026heb90006o0vuo2rlxmy9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-react-statement" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/29/react-statement/" class="article-date">
+  <time datetime="2019-08-29T01:16:30.100Z" itemprop="datePublished">2019-08-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/29/react-statement/">React组件声明方式：函数定义、类定义的简单理解</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>根据官网，定义最简单的组件方式就是一个JavaScript函数，其接受一个props的参数并返回一个react的dom元素。同理class声明也能做到，不过大家都知道函数声明的组件是比较简单的，有许多特性不能使用，接下来是对于这方面的简单理解。</p>
+<p>首先函数声明可以理解为一个特殊的普通函数，其本质与ES5中创建的构造函数差不多，但是该函数里面并没有定义或者继承react的一些其他特性。</p>
+<p>而class声明的组件可以理解为ES6的声明类，声明方式为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class Welcome extends React.Component</span><br></pre></td></tr></table></figure>
+
+<p>可以看到其中的extends继承了React的Component，所以通过class声明的组件继承了react的特性，比如生命周期。</p>
+<p>所以简单来说函数定义的组件本质上就是返回了一个react的dom，而类定义则是继承了react的组件特性的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/29/react-statement/" data-id="ck026heba0007o0vuajie2qf6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/28/hello-world/" class="article-date">
+  <time datetime="2019-08-28T01:22:29.211Z" itemprop="datePublished">2019-08-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/28/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/28/hello-world/" data-id="ck026heb50002o0vuj0zpspzb" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/09/02/down-compatIE9/">记一次兼容IE9踩过得坑</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/29/learn-link/">学习资料链接站</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/29/vue2-x-communication/">vue2.x-父子组件通讯</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/29/axios-potting/">用axios封装的一个比较好用的get和post请求</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/29/mobile-header-component/">React移动端上的一个好用的header组件</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Hanyamu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

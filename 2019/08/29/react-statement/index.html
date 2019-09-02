@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>React组件声明方式：函数定义、类定义的简单理解 | Hanyamu的个人空间</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="根据官网，定义最简单的组件方式就是一个JavaScript函数，其接受一个props的参数并返回一个react的dom元素。同理class声明也能做到，不过大家都知道函数声明的组件是比较简单的，有许多特性不能使用，接下来是对于这方面的简单理解。 首先函数声明可以理解为一个特殊的普通函数，其本质与ES5中创建的构造函数差不多，但是该函数里面并没有定义或者继承react的一些其他特性。 而class声">
+<meta name="keywords" content="前端个人技术博客,js,react,react-router,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React组件声明方式：函数定义、类定义的简单理解">
+<meta property="og:url" content="http://yoursite.com/2019/08/29/react-statement/index.html">
+<meta property="og:site_name" content="Hanyamu的个人空间">
+<meta property="og:description" content="根据官网，定义最简单的组件方式就是一个JavaScript函数，其接受一个props的参数并返回一个react的dom元素。同理class声明也能做到，不过大家都知道函数声明的组件是比较简单的，有许多特性不能使用，接下来是对于这方面的简单理解。 首先函数声明可以理解为一个特殊的普通函数，其本质与ES5中创建的构造函数差不多，但是该函数里面并没有定义或者继承react的一些其他特性。 而class声">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-29T02:26:54.464Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React组件声明方式：函数定义、类定义的简单理解">
+<meta name="twitter:description" content="根据官网，定义最简单的组件方式就是一个JavaScript函数，其接受一个props的参数并返回一个react的dom元素。同理class声明也能做到，不过大家都知道函数声明的组件是比较简单的，有许多特性不能使用，接下来是对于这方面的简单理解。 首先函数声明可以理解为一个特殊的普通函数，其本质与ES5中创建的构造函数差不多，但是该函数里面并没有定义或者继承react的一些其他特性。 而class声">
+  
+    <link rel="alternate" href="/atom.xml" title="Hanyamu的个人空间" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hanyamu的个人空间</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Hanyamu的小博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-react-statement" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/29/react-statement/" class="article-date">
+  <time datetime="2019-08-29T01:16:30.100Z" itemprop="datePublished">2019-08-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      React组件声明方式：函数定义、类定义的简单理解
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>根据官网，定义最简单的组件方式就是一个JavaScript函数，其接受一个props的参数并返回一个react的dom元素。同理class声明也能做到，不过大家都知道函数声明的组件是比较简单的，有许多特性不能使用，接下来是对于这方面的简单理解。</p>
+<p>首先函数声明可以理解为一个特殊的普通函数，其本质与ES5中创建的构造函数差不多，但是该函数里面并没有定义或者继承react的一些其他特性。</p>
+<p>而class声明的组件可以理解为ES6的声明类，声明方式为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class Welcome extends React.Component</span><br></pre></td></tr></table></figure>
+
+<p>可以看到其中的extends继承了React的Component，所以通过class声明的组件继承了react的特性，比如生命周期。</p>
+<p>所以简单来说函数定义的组件本质上就是返回了一个react的dom，而类定义则是继承了react的组件特性的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/29/react-statement/" data-id="ck026heba0007o0vuajie2qf6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/08/29/react-router-history/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          React路由的history的一点小用法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/08/28/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/09/02/down-compatIE9/">记一次兼容IE9踩过得坑</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/29/learn-link/">学习资料链接站</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/29/vue2-x-communication/">vue2.x-父子组件通讯</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/29/axios-potting/">用axios封装的一个比较好用的get和post请求</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/29/mobile-header-component/">React移动端上的一个好用的header组件</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Hanyamu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

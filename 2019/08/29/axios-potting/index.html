@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>用axios封装的一个比较好用的get和post请求 | Hanyamu的个人空间</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="每个项目都会用到request请求，目前这方面用的比较多的就是axio了，结合目前的经验，写了这么一个比较实用的文件，先上代码吧！ 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071">
+<meta name="keywords" content="前端个人技术博客,js,react,react-router,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用axios封装的一个比较好用的get和post请求">
+<meta property="og:url" content="http://yoursite.com/2019/08/29/axios-potting/index.html">
+<meta property="og:site_name" content="Hanyamu的个人空间">
+<meta property="og:description" content="每个项目都会用到request请求，目前这方面用的比较多的就是axio了，结合目前的经验，写了这么一个比较实用的文件，先上代码吧！ 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-29T03:24:22.820Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用axios封装的一个比较好用的get和post请求">
+<meta name="twitter:description" content="每个项目都会用到request请求，目前这方面用的比较多的就是axio了，结合目前的经验，写了这么一个比较实用的文件，先上代码吧！ 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071">
+  
+    <link rel="alternate" href="/atom.xml" title="Hanyamu的个人空间" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hanyamu的个人空间</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Hanyamu的小博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-axios-potting" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/29/axios-potting/" class="article-date">
+  <time datetime="2019-08-29T03:12:15.366Z" itemprop="datePublished">2019-08-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      用axios封装的一个比较好用的get和post请求
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p> 每个项目都会用到request请求，目前这方面用的比较多的就是<a href="https://www.kancloud.cn/yunye/axios/234845" target="_blank" rel="noopener">axio</a>了，结合目前的经验，写了这么一个比较实用的文件，先上代码吧！</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Created by zqq(song que / hanyamu) on 2018/10/31.</span><br><span class="line"> */</span><br><span class="line">/* </span><br><span class="line">    Urls的形式如下：</span><br><span class="line">    const requestUrl = &#123;</span><br><span class="line">        homeIndex: &#123;</span><br><span class="line">            name: <span class="string">"测试地址"</span>,</span><br><span class="line">            url: <span class="string">"home/index"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="built_in">export</span> default requestUrl;</span><br><span class="line"> */</span><br><span class="line">import Axios from <span class="string">"axios"</span>;</span><br><span class="line">import Urls from <span class="string">"./urls.js"</span>;</span><br><span class="line">/* axios请求拦截 */</span><br><span class="line">Axios.interceptors.request.use(</span><br><span class="line">  config =&gt; &#123;</span><br><span class="line">    <span class="built_in">return</span> config;</span><br><span class="line">  &#125;,</span><br><span class="line">  err =&gt; &#123;</span><br><span class="line">    <span class="built_in">return</span> Promise.reject(err);</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br><span class="line">/* axios响应拦截 */</span><br><span class="line">Axios.interceptors.response.use(</span><br><span class="line">  res =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (res.data.code === 40001) &#123;</span><br><span class="line">      /* 错误code统一处理 */</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> res;</span><br><span class="line">  &#125;,</span><br><span class="line">  err =&gt; &#123;</span><br><span class="line">    <span class="built_in">return</span> Promise.reject(err);</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="built_in">let</span> getAxiosConfig = <span class="keyword">function</span>(method, url, data, baseUrl, headers) &#123;</span><br><span class="line">  <span class="built_in">let</span> axiosOptions = &#123;&#125;;</span><br><span class="line">  axiosOptions.timeout = 1000 * 60;</span><br><span class="line">  axiosOptions.withCredentials = <span class="literal">true</span>; // 重点关注，这个参数当时有弄出了一点小问题</span><br><span class="line">  <span class="keyword">if</span>(baseUrl) &#123;</span><br><span class="line">    axiosOptions.baseURL = baseUrl;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    axiosOptions.baseURL = <span class="string">""</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  axiosOptions.method = method;</span><br><span class="line">  <span class="keyword">if</span>(Urls[url]) &#123;</span><br><span class="line">    axiosOptions.url = Urls[url].url;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    axiosOptions.url = url;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (method == <span class="string">"get"</span> &amp;&amp; data) &#123;</span><br><span class="line">    axiosOptions.params = data;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (method == <span class="string">"post"</span> &amp;&amp; data) &#123;</span><br><span class="line">    axiosOptions.data = data;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">let</span> needHeaders = &#123;&#125;</span><br><span class="line">  axiosOptions.headers = &#123;...needHeaders, ...headers&#125;;</span><br><span class="line">  <span class="built_in">return</span> axiosOptions;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> const axiosGet = (url, data, baseUrl, headers) =&gt; &#123;</span><br><span class="line">  <span class="built_in">return</span> new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">    <span class="built_in">let</span> axiosConfig = getAxiosConfig(<span class="string">"get"</span>, url, data, baseUrl, headers);</span><br><span class="line">    Axios(axiosConfig)</span><br><span class="line">      .<span class="keyword">then</span>(res =&gt; &#123;</span><br><span class="line">        resolve(res.data);</span><br><span class="line">      &#125;)</span><br><span class="line">      .catch(err =&gt; &#123;</span><br><span class="line">        reject(err);</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">export</span> const axiosPost = (url, data, baseUrl, headers) =&gt; &#123;</span><br><span class="line">  <span class="built_in">return</span> new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">    <span class="built_in">let</span> axiosConfig = getAxiosConfig(<span class="string">"post"</span>, url, data, baseUrl, headers);</span><br><span class="line">    Axios(axiosConfig)</span><br><span class="line">      .<span class="keyword">then</span>(res =&gt; &#123;</span><br><span class="line">        resolve(res.data);</span><br><span class="line">      &#125;)</span><br><span class="line">      .catch(err =&gt; &#123;</span><br><span class="line">        reject(err);</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>注：该请求的封装适合后端用token形式的传参，之前的开发，公司都是用的token形式的，后面个人负责项目的时候封装了这个axios的请求，然后后端没用采用token，而是用的sesion形式来判断用户，具体做法就是后端会给前端一个cookie，然后cookie的特性是登录发请求的时候会自动带过去，所以之前后端这样做事没用问题的，但是用这个封装跨域的时候就获取不到cookie了，当时还是后端同学找出了解决方式（羞愧的我），查axios文档发现这个参数withCredentials，改参数默认为false，表示跨域请求时是否需要使用凭证，所以跨域的时候axios就把cookie拦截了，所以采用session的方式的话1请把这个值设为true，这样方便联调。</p>
+<p>axios中文文档：<a href="https://www.kancloud.cn/yunye/axios/234845" target="_blank" rel="noopener">https://www.kancloud.cn/yunye/axios/234845</a><br>按其配置，一个请求只需要传入一个options对象就可以了，所以我用getAxiosConfigs方法使其return出来一个对应的对象，后面就直接定义就好了。</p>
+<p>详细代码可参考：<a href="https://github.com/HanYamu/zqq-cli-mobile.git" target="_blank" rel="noopener">https://github.com/HanYamu/zqq-cli-mobile.git</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/29/axios-potting/" data-id="ck026he9v0000o0vus0jzclho" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/08/29/vue2-x-communication/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          vue2.x-父子组件通讯
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/08/29/mobile-header-component/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">React移动端上的一个好用的header组件</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/09/02/down-compatIE9/">记一次兼容IE9踩过得坑</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/29/learn-link/">学习资料链接站</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/29/vue2-x-communication/">vue2.x-父子组件通讯</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/29/axios-potting/">用axios封装的一个比较好用的get和post请求</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/29/mobile-header-component/">React移动端上的一个好用的header组件</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Hanyamu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

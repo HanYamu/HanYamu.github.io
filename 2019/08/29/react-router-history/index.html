@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>React路由的history的一点小用法 | Hanyamu的个人空间</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="react路由的变化都是基于history上面进行的，大家可以明显的感觉到在外层的路由组件上面都会有一个history参数如： 1&amp;lt;Router history=&amp;#123;browserHistory&amp;#125; routes=&amp;#123;routes(app.siteHost)&amp;#125;/&amp;gt;  react-router4除外，react-router-dom里面提供的HashRo">
+<meta name="keywords" content="前端个人技术博客,js,react,react-router,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React路由的history的一点小用法">
+<meta property="og:url" content="http://yoursite.com/2019/08/29/react-router-history/index.html">
+<meta property="og:site_name" content="Hanyamu的个人空间">
+<meta property="og:description" content="react路由的变化都是基于history上面进行的，大家可以明显的感觉到在外层的路由组件上面都会有一个history参数如： 1&amp;lt;Router history=&amp;#123;browserHistory&amp;#125; routes=&amp;#123;routes(app.siteHost)&amp;#125;/&amp;gt;  react-router4除外，react-router-dom里面提供的HashRo">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-29T02:46:11.475Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React路由的history的一点小用法">
+<meta name="twitter:description" content="react路由的变化都是基于history上面进行的，大家可以明显的感觉到在外层的路由组件上面都会有一个history参数如： 1&amp;lt;Router history=&amp;#123;browserHistory&amp;#125; routes=&amp;#123;routes(app.siteHost)&amp;#125;/&amp;gt;  react-router4除外，react-router-dom里面提供的HashRo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hanyamu的个人空间" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hanyamu的个人空间</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Hanyamu的小博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-react-router-history" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/29/react-router-history/" class="article-date">
+  <time datetime="2019-08-29T02:28:57.399Z" itemprop="datePublished">2019-08-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      React路由的history的一点小用法
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>react路由的变化都是基于history上面进行的，大家可以明显的感觉到在外层的路由组件上面都会有一个history参数如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Router <span class="built_in">history</span>=&#123;browserHistory&#125; routes=&#123;routes(app.siteHost)&#125;/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>react-router4除外，react-router-dom里面提供的<a href="https://reacttraining.com/react-router/web/api/HashRouter" target="_blank" rel="noopener">HashRouter</a>, <a href="https://reacttraining.com/react-router/web/api/BrowserRouter" target="_blank" rel="noopener">BrowserRouter</a>组件自带有history，不过其中的<a href="https://reacttraining.com/react-router/web/api/Router" target="_blank" rel="noopener">Router</a>组件还是需要自己加history。<br>个人想法：自定义的history可以在react组件的外部获取到history，绑定history组件的history只能在react组件内部的props获取。</p>
+<p>所以接下来就来了解下这个history。<br>首先我们把<a href="https://github.com/ReactTraining/history" target="_blank" rel="noopener">history</a>打印出来看下有哪些，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">action: <span class="string">"PUSH"</span></span><br><span class="line">block: ƒ block(prompt)</span><br><span class="line">createHref: ƒ createHref(location)</span><br><span class="line">go: ƒ go(n)</span><br><span class="line">goBack: ƒ goBack()</span><br><span class="line">goForward: ƒ goForward()</span><br><span class="line">length: 8</span><br><span class="line">listen: ƒ listen(listener)</span><br><span class="line">location: &#123;pathname: <span class="string">"/main/resourcesManage"</span>, state: &#123;…&#125;, search: <span class="string">""</span>, <span class="built_in">hash</span>: <span class="string">""</span>&#125;</span><br><span class="line">push: ƒ push(path, state)</span><br><span class="line">replace: ƒ replace(path, state)</span><br></pre></td></tr></table></figure>
+
+<p>如上所示，create开头的方法与路由的创建有关，这里就不讨论了，我们重点先关注它的使用。<br>getCurrentLocation()：毫无疑问该方法是获取当前路由，其值为一个对象，包含action、hash、key、pathname、query、search参数以及state。<br>可以看一下具体的例子，其中action的pop向后删除，意为返回，push为跳转前进。</p>
+<p>go(num): 同window.history.go(num);<br>goBack(): 后退<br>goForward(): 前进<br>listen(): 监听路由，当前路由变化的时候触发。举个例子：browserHistory.listen(location =&gt; { console.log(location) }) 改方法接受一个函数作为参数，其默认值location同getCurrentLocation()获取的值。这里就能根据pathname进行判断以达到类似生命周期之类的效果。<br>listenBefore(): 顾名思义在监听路由变化之前，可以理解为跳转之前，其参数值同listen()。<br>注：listenBefore()参数回调允许return一个true或者false，若为false，则接下来的跳转将会终止。这个小技巧其实是可以运用到路由拦截里面的，网上看了很多react路由拦截的篇章，有好些都是从组件入手，根据不同的值渲染不同的组件，其实这个小地方就能实现路由拦截。<br>push(path): 跳转前进，并记录跳转的地址。<br>replace(path): 跳转前进，不记录跳转的地址。<br>push(path)与replace(path)的区别在于是否写入到history的历史栏里面，push在数组的方法里为向后添加，所以会记录到历史里面，而replace不会，合理运用好两者能够很好的管理好项目的路由系统。举个栗子来说吧，在电商购物的场景下会出现这种状况，去结算购物车，然后下单，然后需要选择地址，那么在改场景下跳转地址栏就可以用replace而不是push，若是用push的话有出现一个死循环，比如订单页面跳转了地址，选择了地址之后又跳转到订单，此时用户若是不想下单那么又走了右上角的返回，那么上一个页面是否就是订单页面呢，然后订单页面再返回就又是订单，然后才能返回到购物车，所以该处就可以考虑使用relpace了，因为若是用replace的话再订单页面就直接返回购物车，因为其他的跳转是不记录history的。</p>
+<p>在h5项目中合合理管理好路由会避免一些死循环问题。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/29/react-router-history/" data-id="ck026heb90006o0vuo2rlxmy9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/08/29/mobile-header-component/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          React移动端上的一个好用的header组件
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/08/29/react-statement/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">React组件声明方式：函数定义、类定义的简单理解</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/09/02/down-compatIE9/">记一次兼容IE9踩过得坑</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/29/learn-link/">学习资料链接站</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/29/vue2-x-communication/">vue2.x-父子组件通讯</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/29/axios-potting/">用axios封装的一个比较好用的get和post请求</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/29/mobile-header-component/">React移动端上的一个好用的header组件</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Hanyamu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>React移动端上的一个好用的header组件 | Hanyamu的个人空间</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="移动端项目中页面多是头部header，中间内容，底部footer的结构，这里头部部分多为固定的结构，左边返回按钮，中间标题，右边可有可没有，为了减少重复编写，所以有个移动端的head组件是比较需要的。head组件，先附上代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748">
+<meta name="keywords" content="前端个人技术博客,js,react,react-router,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React移动端上的一个好用的header组件">
+<meta property="og:url" content="http://yoursite.com/2019/08/29/mobile-header-component/index.html">
+<meta property="og:site_name" content="Hanyamu的个人空间">
+<meta property="og:description" content="移动端项目中页面多是头部header，中间内容，底部footer的结构，这里头部部分多为固定的结构，左边返回按钮，中间标题，右边可有可没有，为了减少重复编写，所以有个移动端的head组件是比较需要的。head组件，先附上代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-29T02:58:14.851Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React移动端上的一个好用的header组件">
+<meta name="twitter:description" content="移动端项目中页面多是头部header，中间内容，底部footer的结构，这里头部部分多为固定的结构，左边返回按钮，中间标题，右边可有可没有，为了减少重复编写，所以有个移动端的head组件是比较需要的。head组件，先附上代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748">
+  
+    <link rel="alternate" href="/atom.xml" title="Hanyamu的个人空间" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hanyamu的个人空间</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Hanyamu的小博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mobile-header-component" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/29/mobile-header-component/" class="article-date">
+  <time datetime="2019-08-29T02:55:57.382Z" itemprop="datePublished">2019-08-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      React移动端上的一个好用的header组件
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>移动端项目中页面多是头部header，中间内容，底部footer的结构，这里头部部分多为固定的结构，左边返回按钮，中间标题，右边可有可没有，为了减少重复编写，所以有个移动端的head组件是比较需要的。<br>head组件，先附上代码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; Component &#125; from <span class="string">'react'</span>;</span><br><span class="line">require (<span class="string">'./uiComponents.less'</span>)</span><br><span class="line"></span><br><span class="line">class UiHead extends Component &#123;</span><br><span class="line">    constructor(props, context) &#123;</span><br><span class="line">        super(props, context);</span><br><span class="line">        this.state = &#123;</span><br><span class="line">            headerOptions:&#123;</span><br><span class="line">                left: &lt;div&gt;←&lt;/div&gt;,</span><br><span class="line">                title: <span class="string">"titile"</span>,</span><br><span class="line">                right: <span class="string">""</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">render</span></span>()&#123;</span><br><span class="line">        /** 该处设置头部左边icon的默认返回图片 */</span><br><span class="line">        this.state.headerOptions.left = &lt;img src=&#123;require(<span class="string">"../../assets/imgs/back2.png"</span>)&#125; alt=<span class="string">""</span>/&gt;</span><br><span class="line">        <span class="built_in">return</span> (</span><br><span class="line">            &lt;div className=<span class="string">"ui_head"</span> ref=<span class="string">"uiHeaderRef"</span>&gt;</span><br><span class="line">                &lt;div className=<span class="string">"ui_head_left"</span> onClick=&#123;this.leftClick.bind(this)&#125;&gt;&#123;this.props.headerOptions &amp;&amp; this.props.headerOptions.left ? this.props.headerOptions.left : this.state.headerOptions.left&#125;&lt;/div&gt;</span><br><span class="line">                &lt;div className=<span class="string">"ui_head_middle"</span>&gt;&#123;this.props.headerOptions &amp;&amp; this.props.headerOptions.title ? this.props.headerOptions.title : this.state.headerOptions.title&#125;&lt;/div&gt;</span><br><span class="line">                &lt;div className=<span class="string">"ui_head_right"</span> onClick=&#123;this.rightClick.bind(this)&#125;&gt;&#123;this.props.headerOptions &amp;&amp; this.props.headerOptions.right ? this.props.headerOptions.right : this.state.headerOptions.right&#125;&lt;/div&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">componentDidMount</span></span>() &#123; &#125;</span><br><span class="line">    <span class="function"><span class="title">setDefaultHead</span></span>() &#123;</span><br><span class="line">        /** 该判断用于添加头部组件的class */</span><br><span class="line">        <span class="keyword">if</span>(this.props.className) &#123;</span><br><span class="line">            this.refs.uiHeaderRef.classList.add(this.props.className)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">leftClick</span></span>() &#123;</span><br><span class="line">        /** 该方法用于判断是否有传入点击头部左边icon的事件，有则用之，无则默认返回 */</span><br><span class="line">        <span class="keyword">if</span>(this.props.leftClick) &#123;</span><br><span class="line">            this.props.leftClick();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            window.history.go(-1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">rightClick</span></span>() &#123;</span><br><span class="line">        /** 该方法用于判断是否有传入点击头部右边icon的事件，有则用之，无默认事件 */</span><br><span class="line">        <span class="keyword">if</span>(this.props.rightClick) &#123;</span><br><span class="line">            this.props.rightClick();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class UiContainer extends Component &#123;</span><br><span class="line">    constructor(props, context) &#123;</span><br><span class="line">        super(props, context);</span><br><span class="line">        this.state = &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">render</span></span>()&#123;</span><br><span class="line">        /** this.props.children放在内部使得在其他页面调用该组件时可以向里面插入html标签，</span><br><span class="line">         * 需要注意，this.props.children 的值有三种可能：如果当前组件没有子节点，它就是 undefined ;</span><br><span class="line">         * 如果有一个子节点，数据类型是 object ；如果有多个子节点，数据类型就是 array 。</span><br><span class="line">         * */</span><br><span class="line">        <span class="built_in">return</span> (</span><br><span class="line">            &lt;div className=<span class="string">"ui_container"</span> ref=<span class="string">"uiContainer"</span>&gt;&#123;this.props.children&#125;&lt;/div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">componentDidMount</span></span>() &#123;</span><br><span class="line">        /** 该判断用于添加内容组件的class */</span><br><span class="line">        <span class="keyword">if</span>(this.props.className) &#123;</span><br><span class="line">            this.refs.uiContainer.classList.add(this.props.className)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class UiLayout extends Component &#123;</span><br><span class="line">    constructor(props, context) &#123;</span><br><span class="line">        super(props, context);</span><br><span class="line">        this.state = &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">render</span></span>()&#123;</span><br><span class="line">        /** this.props.children放在内部使得在其他页面调用该组件时可以向里面插入html标签，</span><br><span class="line">         * 需要注意，this.props.children 的值有三种可能：如果当前组件没有子节点，它就是 undefined ;</span><br><span class="line">         * 如果有一个子节点，数据类型是 object ；如果有多个子节点，数据类型就是 array 。</span><br><span class="line">         * */</span><br><span class="line">        <span class="built_in">return</span> (</span><br><span class="line">            &lt;div className=<span class="string">"ui_layout"</span> ref=<span class="string">"uiLayout"</span>&gt;&#123;this.props.children&#125;&lt;/div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">componentDidMount</span></span>() &#123;</span><br><span class="line">        /** 该判断用于添加外层布局组件的class */</span><br><span class="line">        <span class="keyword">if</span>(this.props.className) &#123;</span><br><span class="line">            this.refs.uiLayout.classList.add(this.props.className)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> &#123;UiHead, UiContainer, UiLayout&#125;</span><br></pre></td></tr></table></figure>
+
+<p>样式部分就不上代码了，简单的说下布局方式，header部分的总体布局为flex布局，返回垂直居中，并且左右两边各留出相同宽以供左右按钮的放置，左右两边不拉伸，然后中间给div，flex为1，占据除掉左右两边的所有部分，这样整个header就成型了。由于React可以接受html标签形式的dom，所以左右两边接受父组件出过来的参数，当然也也可以设置默认值，父组件的参数从props上去，若是不想采用默认方法也可以重父组件的props取，所以在左右按钮的方法上面增加了判断，采取什么方式可自行决断，然后其他两个组件主要是为了整体页面结构而加的，没有什么大的内容限制<br>详细代码可参考：<a href="https://github.com/HanYamu/" target="_blank" rel="noopener">https://github.com/HanYamu/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/29/mobile-header-component/" data-id="ck026heb70004o0vux9rl1g2a" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/08/29/axios-potting/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          用axios封装的一个比较好用的get和post请求
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/08/29/react-router-history/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">React路由的history的一点小用法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/09/02/down-compatIE9/">记一次兼容IE9踩过得坑</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/29/learn-link/">学习资料链接站</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/29/vue2-x-communication/">vue2.x-父子组件通讯</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/29/axios-potting/">用axios封装的一个比较好用的get和post请求</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/29/mobile-header-component/">React移动端上的一个好用的header组件</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Hanyamu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
